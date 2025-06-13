@@ -14,7 +14,7 @@
       padding: 0;
       height: 100%;
       font-family: 'Segoe UI', sans-serif;
-      background-color: #fffafc;
+      background-color: #fde8eb; /* Fundo rosa claro */
     }
 
     .container {
@@ -22,15 +22,18 @@
       flex-direction: column;
       justify-content: center;
       max-width: 600px;
-      margin: 0 auto;
+      margin: 40px auto; /* distância do topo */
       padding: 30px 20px;
-      min-height: 100vh;
+      min-height: auto;
       background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
     h1 {
       text-align: center;
       color: #ff4d4d;
+      margin-bottom: 30px;
     }
 
     label {
@@ -58,6 +61,7 @@
       border-radius: 6px;
       font-size: 16px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
 
     button:hover {
@@ -96,8 +100,14 @@
     <label for="rua">Rua</label>
     <input type="text" name="rua" id="rua" required />
 
-    <label for="logradouro">Logradouro</label>
-    <input type="text" name="logradouro" id="logradouro" required />
+    <label for="bairro">Bairro</label>
+    <input type="text" name="bairro" id="bairro" required />
+
+    <label for="cidade">Cidade</label>
+    <input type="text" name="cidade" id="cidade" required />
+
+    <label for="numero">Número da casa</label>
+    <input type="text" name="numero" id="numero" required />
 
     <label for="pagamento">Forma de pagamento</label>
     <select name="pagamento" id="pagamento" required>
@@ -114,17 +124,14 @@
 </div>
 
 <script>
-  // Pega os parâmetros da URL
   const urlParams = new URLSearchParams(window.location.search);
   const produto = urlParams.get('produto') || 'Produto não especificado';
   const precoRaw = urlParams.get('preco');
   const preco = precoRaw && !isNaN(precoRaw) ? parseFloat(precoRaw).toFixed(2) : '0.00';
 
-  // Atualiza a exibição do produto e preço
   document.getElementById('produto').textContent = produto;
   document.getElementById('preco').textContent = preco.replace('.', ',');
 
-  // Evento submit do formulário
   document.getElementById('formulario').addEventListener('submit', function(e) {
     e.preventDefault();
 
@@ -133,7 +140,9 @@
     const cpf = dados.get('cpf');
     const nascimento = dados.get('nascimento');
     const rua = dados.get('rua');
-    const logradouro = dados.get('logradouro');
+    const bairro = dados.get('bairro');
+    const cidade = dados.get('cidade');
+    const numero = dados.get('numero');
     const pagamento = dados.get('pagamento');
 
     const mensagem = `Olá! Gostaria de comprar o produto *${produto}* no valor de R$${preco}.
@@ -141,11 +150,10 @@
 *Nome:* ${nome}
 *CPF:* ${cpf}
 *Nascimento:* ${nascimento}
-*Rua:* ${rua}
-*Logradouro:* ${logradouro}
+*Endereço:* Rua ${rua}, Bairro ${bairro}, Cidade ${cidade}, Nº ${numero}
 *Forma de Pagamento:* ${pagamento}`;
 
-    const telefone = '5518996377806'; // Seu número com código do país e DDD
+    const telefone = '5518996377806';
     const link = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
     window.open(link, '_blank');
   });
