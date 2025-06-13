@@ -20,7 +20,7 @@
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       padding: 30px 25px 40px;
-      min-height: 680px;
+      min-height: 600px;
       display: flex;
       flex-direction: column;
     }
@@ -109,14 +109,6 @@
     .produto-info strong {
       color: #ff4d7a;
     }
-    .produto-imagem {
-      width: 200px;
-      height: 200px;
-      margin: 0 auto 20px;
-      object-fit: contain;
-      border-radius: 10px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    }
     label {
       display: block;
       margin-top: 15px;
@@ -180,7 +172,6 @@
       font-size: 16px;
       margin: 8px 0;
       color: #333;
-      word-wrap: break-word;
     }
     .resumo-final strong {
       color: #ff4d7a;
@@ -211,10 +202,6 @@
       .buttons button {
         width: 100%;
       }
-      .produto-imagem {
-        width: 150px;
-        height: 150px;
-      }
     }
   </style>
 </head>
@@ -244,76 +231,76 @@
   <form id="formulario" novalidate>
 
     <fieldset data-step="1" class="active">
-      <label for="produtoSelect" style="font-weight:700; font-size: 16px; margin-bottom: 10px;">Selecione a joia</label>
-      <select id="produtoSelect" required>
-        <option value="" disabled selected>-- Escolha um produto --</option>
-        <option value="brinco" data-preco="320.00" data-img="https://i.ibb.co/r3pH5Dy/brinco-diamante.png">Brinco de Diamante</option>
-        <option value="colar" data-preco="580.00" data-img="https://i.ibb.co/0J8XZ3X/colar-ouro.png">Colar de Ouro</option>
-        <option value="anel" data-preco="450.00" data-img="https://i.ibb.co/jR3M31r/anel-prata.png">Anel de Prata</option>
-      </select>
-
-      <div class="produto-info" style="margin-top: 20px; text-align: center;">
-        <img src="https://i.ibb.co/r3pH5Dy/brinco-diamante.png" alt="Imagem do Produto" id="produtoImagem" class="produto-imagem" />
-        <p><strong>Produto:</strong> <span id="produto">Nenhum selecionado</span></p>
+      <div class="produto-info">
+        <p><strong>Produto:</strong> <span id="produto">Produto não especificado</span></p>
         <p><strong>Preço:</strong> R$ <span id="preco">0,00</span></p>
       </div>
-
-      <div class="buttons" style="justify-content: flex-end; margin-top: 30px;">
-        <button type="button" id="btnAvancar1" disabled>Próximo</button>
+      <div class="buttons" style="justify-content: flex-end;">
+        <button type="button" id="btnAvancar1">Escolher Dados</button>
       </div>
     </fieldset>
 
     <fieldset data-step="2">
       <label for="nome">Nome completo</label>
-      <input type="text" name="nome" id="nome" required placeholder="Seu nome completo" />
+      <input type="text" name="nome" id="nome" required />
 
       <label for="cpf">CPF</label>
-      <input type="text" name="cpf" id="cpf" required placeholder="Somente números" maxlength="11" pattern="\d{11}" title="Digite 11 números do CPF" inputmode="numeric" />
+      <input type="text" name="cpf" id="cpf" required pattern="\d{11}" title="Digite 11 números do CPF sem pontos ou traços" />
 
       <label for="nascimento">Data de nascimento</label>
       <input type="date" name="nascimento" id="nascimento" required max="" />
 
       <label for="rua">Rua</label>
-      <input type="text" name="rua" id="rua" required placeholder="Nome da rua" />
+      <input type="text" name="rua" id="rua" required />
 
-      <div class="buttons" style="margin-top: 30px;">
+      <label for="bairro">Bairro</label>
+      <input type="text" name="bairro" id="bairro" required />
+
+      <label for="cidade">Cidade</label>
+      <input type="text" name="cidade" id="cidade" required />
+
+      <label for="numero">Número da casa</label>
+      <input type="text" name="numero" id="numero" required />
+
+      <div class="buttons">
         <button type="button" class="secondary" id="btnVoltar2">Voltar</button>
-        <button type="button" id="btnAvancar2">Próximo</button>
+        <button type="button" id="btnAvancar2">Escolher Pagamento</button>
       </div>
     </fieldset>
 
     <fieldset data-step="3">
       <label for="pagamento">Forma de pagamento</label>
       <select name="pagamento" id="pagamento" required>
-        <option value="" disabled selected>-- Selecione --</option>
+        <option value="">Selecione</option>
         <option value="Cartão de Crédito">Cartão de Crédito</option>
         <option value="Cartão de Débito">Cartão de Débito</option>
         <option value="Pix">Pix</option>
         <option value="À vista">À vista</option>
-        <option value="Link de pagamento">Link de pagamento</option>
+        <option value="Link de Pagamento">Link de Pagamento</option>
       </select>
 
-      <div class="buttons" style="margin-top: 30px;">
+      <div class="buttons">
         <button type="button" class="secondary" id="btnVoltar3">Voltar</button>
-        <button type="submit" id="btnEnviar">Finalizar</button>
+        <button type="button" id="btnAvancar3">Resumo Final</button>
       </div>
     </fieldset>
 
     <fieldset data-step="4">
-      <h1>Resumo do Pedido</h1>
-      <div class="resumo-final" style="flex-grow:1; display:flex; flex-direction: column; justify-content: center; align-items: center;">
+      <h2 style="color:#ff4d7a; text-align:center; margin-bottom: 20px;">Confira seus dados</h2>
+      <div class="resumo-final" style="flex-grow:1; overflow-y:auto; max-height: 350px;">
         <p><strong>Produto:</strong> <span id="resumoProduto"></span></p>
         <p><strong>Preço:</strong> R$ <span id="resumoPreco"></span></p>
+        <hr />
         <p><strong>Nome:</strong> <span id="resumoNome"></span></p>
-        <p><strong>CPF:</strong> <span id="resumoCPF"></span></p>
+        <p><strong>CPF:</strong> <span id="resumoCpf"></span></p>
         <p><strong>Data de nascimento:</strong> <span id="resumoNascimento"></span></p>
-        <p><strong>Rua:</strong> <span id="resumoRua"></span></p>
+        <p><strong>Endereço:</strong> Rua <span id="resumoRua"></span>, Bairro <span id="resumoBairro"></span>, Cidade <span id="resumoCidade"></span>, Nº <span id="resumoNumero"></span></p>
+        <hr />
         <p><strong>Forma de pagamento:</strong> <span id="resumoPagamento"></span></p>
       </div>
-
-      <div class="buttons" style="margin-top: 30px;">
+      <div class="buttons">
         <button type="button" class="secondary" id="btnVoltar4">Voltar</button>
-        <button type="button" id="btnConfirmar">Confirmar e Enviar WhatsApp</button>
+        <button type="submit" id="btnEnviar">Confirmar e Enviar</button>
       </div>
     </fieldset>
 
@@ -321,132 +308,143 @@
 </div>
 
 <script>
-  // Ajustar data máxima do nascimento para hoje
-  const nascimentoInput = document.getElementById('nascimento');
-  nascimentoInput.max = new Date().toISOString().split('T')[0];
+  // Dados do produto da URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const produto = urlParams.get('produto') || 'Produto não especificado';
+  const precoRaw = urlParams.get('preco');
+  const preco = precoRaw && !isNaN(precoRaw) ? parseFloat(precoRaw).toFixed(2) : '0.00';
 
+  // Preenche produto e preço
+  document.getElementById('produto').textContent = produto;
+  document.getElementById('preco').textContent = preco.replace('.', ',');
+
+  // Elementos
   const steps = document.querySelectorAll('.step');
-  const fieldsets = document.querySelectorAll('form > fieldset');
-  const form = document.getElementById('formulario');
-
-  let currentStep = 1;
-
-  const produtoSelect = document.getElementById('produtoSelect');
-  const produtoNome = document.getElementById('produto');
-  const produtoPreco = document.getElementById('preco');
-  const produtoImagem = document.getElementById('produtoImagem');
+  const fieldsets = document.querySelectorAll('form fieldset');
   const btnAvancar1 = document.getElementById('btnAvancar1');
+  const btnAvancar2 = document.getElementById('btnAvancar2');
+  const btnAvancar3 = document.getElementById('btnAvancar3');
+  const btnVoltar2 = document.getElementById('btnVoltar2');
+  const btnVoltar3 = document.getElementById('btnVoltar3');
+  const btnVoltar4 = document.getElementById('btnVoltar4');
+  const formulario = document.getElementById('formulario');
 
-  // Atualiza dados do produto selecionado
-  produtoSelect.addEventListener('change', () => {
-    const selecionado = produtoSelect.selectedOptions[0];
-    if (!selecionado) return;
+  const inputsStep2 = ['nome', 'cpf', 'nascimento', 'rua', 'bairro', 'cidade', 'numero'];
+  const pagamentoSelect = document.getElementById('pagamento');
 
-    const nome = selecionado.textContent;
-    const preco = parseFloat(selecionado.dataset.preco);
-    const img = selecionado.dataset.img;
-
-    produtoNome.textContent = nome;
-    produtoPreco.textContent = preco.toFixed(2).replace('.', ',');
-    produtoImagem.src = img;
-
-    btnAvancar1.disabled = false;
-  });
-
-  function showStep(step) {
-    currentStep = step;
-    fieldsets.forEach(f => f.classList.remove('active'));
-    const fs = document.querySelector(`form > fieldset[data-step="${step}"]`);
-    fs.classList.add('active');
-
-    steps.forEach(s => {
-      s.classList.remove('active');
-      s.classList.remove('completed');
-      if (parseInt(s.dataset.step) < step) s.classList.add('completed');
-      if (parseInt(s.dataset.step) === step) s.classList.add('active');
+  function mostrarEtapa(num) {
+    fieldsets.forEach(fs => {
+      fs.classList.toggle('active', fs.dataset.step === String(num));
+    });
+    steps.forEach((step, i) => {
+      if (i < num - 1) {
+        step.classList.add('completed');
+        step.classList.remove('active');
+      } else if (i === num - 1) {
+        step.classList.add('active');
+        step.classList.remove('completed');
+      } else {
+        step.classList.remove('active', 'completed');
+      }
     });
   }
 
-  // Botões Avançar e Voltar
+  function validarStep2() {
+    for (let id of inputsStep2) {
+      const input = document.getElementById(id);
+      if (!input.checkValidity()) {
+        input.reportValidity();
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function validarPagamento() {
+    if (!pagamentoSelect.value) {
+      pagamentoSelect.focus();
+      alert('Por favor, selecione uma forma de pagamento.');
+      return false;
+    }
+    return true;
+  }
+
+  function setMaxNascimento() {
+    const inputNascimento = document.getElementById('nascimento');
+    const hoje = new Date();
+    hoje.setFullYear(hoje.getFullYear() - 18);
+    const maxDate = hoje.toISOString().split('T')[0];
+    inputNascimento.setAttribute('max', maxDate);
+  }
+  setMaxNascimento();
+
+  function atualizarResumo() {
+    document.getElementById('resumoProduto').textContent = produto;
+    document.getElementById('resumoPreco').textContent = preco.replace('.', ',');
+    document.getElementById('resumoNome').textContent = document.getElementById('nome').value;
+    document.getElementById('resumoCpf').textContent = document.getElementById('cpf').value;
+    document.getElementById('resumoNascimento').textContent = document.getElementById('nascimento').value;
+    document.getElementById('resumoRua').textContent = document.getElementById('rua').value;
+    document.getElementById('resumoBairro').textContent = document.getElementById('bairro').value;
+    document.getElementById('resumoCidade').textContent = document.getElementById('cidade').value;
+    document.getElementById('resumoNumero').textContent = document.getElementById('numero').value;
+    document.getElementById('resumoPagamento').textContent = pagamentoSelect.value;
+  }
+
   btnAvancar1.addEventListener('click', () => {
-    showStep(2);
+    mostrarEtapa(2);
   });
 
-  document.getElementById('btnVoltar2').addEventListener('click', () => {
-    showStep(1);
-  });
-  document.getElementById('btnAvancar2').addEventListener('click', () => {
-    // Validação dos dados do cliente
-    if(!form.nome.checkValidity()){
-      alert("Por favor, preencha o nome corretamente.");
-      form.nome.focus();
-      return;
-    }
-    if(!form.cpf.checkValidity()){
-      alert("Por favor, preencha o CPF com 11 números.");
-      form.cpf.focus();
-      return;
-    }
-    if(!form.nascimento.checkValidity()){
-      alert("Por favor, preencha a data de nascimento corretamente.");
-      form.nascimento.focus();
-      return;
-    }
-    if(!form.rua.checkValidity()){
-      alert("Por favor, preencha o nome da rua.");
-      form.rua.focus();
-      return;
-    }
-    showStep(3);
+  btnVoltar2.addEventListener('click', () => {
+    mostrarEtapa(1);
   });
 
-  document.getElementById('btnVoltar3').addEventListener('click', () => {
-    showStep(2);
+  btnAvancar2.addEventListener('click', () => {
+    if (validarStep2()) {
+      mostrarEtapa(3);
+    }
   });
 
-  // Envio do formulário - botão Finalizar
-  form.addEventListener('submit', function(e){
+  btnVoltar3.addEventListener('click', () => {
+    mostrarEtapa(2);
+  });
+
+  btnAvancar3.addEventListener('click', () => {
+    if (validarPagamento()) {
+      atualizarResumo();
+      mostrarEtapa(4);
+    }
+  });
+
+  btnVoltar4.addEventListener('click', () => {
+    mostrarEtapa(3);
+  });
+
+  formulario.addEventListener('submit', e => {
     e.preventDefault();
-    // Validação do pagamento
-    if(!form.pagamento.checkValidity()){
-      alert("Por favor, selecione a forma de pagamento.");
-      form.pagamento.focus();
-      return;
-    }
-    // Montar resumo
-    document.getElementById('resumoProduto').textContent = produtoNome.textContent;
-    document.getElementById('resumoPreco').textContent = produtoPreco.textContent;
-    document.getElementById('resumoNome').textContent = form.nome.value;
-    document.getElementById('resumoCPF').textContent = form.cpf.value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-    document.getElementById('resumoNascimento').textContent = form.nascimento.value.split('-').reverse().join('/');
-    document.getElementById('resumoRua').textContent = form.rua.value;
-    document.getElementById('resumoPagamento').textContent = form.pagamento.value;
 
-    showStep(4);
+    const nome = document.getElementById('nome').value.trim();
+    const cpf = document.getElementById('cpf').value.trim();
+    const nascimento = document.getElementById('nascimento').value;
+    const rua = document.getElementById('rua').value.trim();
+    const bairro = document.getElementById('bairro').value.trim();
+    const cidade = document.getElementById('cidade').value.trim();
+    const numero = document.getElementById('numero').value.trim();
+    const pagamento = pagamentoSelect.value;
+
+    const mensagem = `Olá! Gostaria de comprar o produto *${produto}* no valor de R$${preco.replace('.', ',')}.
+
+Nome: ${nome}
+CPF: ${cpf}
+Data de nascimento: ${nascimento}
+Endereço: Rua ${rua}, Bairro ${bairro}, Cidade ${cidade}, Nº ${numero}
+Forma de pagamento: ${pagamento}`;
+
+    const mensagemUrl = encodeURIComponent(mensagem);
+    const numeroWhatsapp = '5518996377806';
+
+    window.open(`https://wa.me/${numeroWhatsapp}?text=${mensagemUrl}`, '_blank');
   });
-
-  document.getElementById('btnVoltar4').addEventListener('click', () => {
-    showStep(3);
-  });
-
-  document.getElementById('btnConfirmar').addEventListener('click', () => {
-    // Preparar mensagem para WhatsApp
-    const msg = `*Pedido de Joia*\n` +
-      `Produto: ${produtoNome.textContent}\n` +
-      `Preço: R$${produtoPreco.textContent}\n` +
-      `Nome: ${form.nome.value}\n` +
-      `CPF: ${form.cpf.value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4')}\n` +
-      `Data de Nascimento: ${form.nascimento.value.split('-').reverse().join('/')}\n` +
-      `Rua: ${form.rua.value}\n` +
-      `Forma de Pagamento: ${form.pagamento.value}`;
-
-    // Número de telefone para envio - substitua pelo seu número com código do país
-    const telefone = '5518996377806';
-
-    const url = `https://wa.me/${telefone}?text=${encodeURIComponent(msg)}`;
-    window.open(url, '_blank');
-  });
-
 </script>
 
 </body>
