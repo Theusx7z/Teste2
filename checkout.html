@@ -1,192 +1,486 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Compra de Joias</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Checkout - Giovanna Joias</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #f8f8f8, #fff);
-      margin: 0;
-      padding: 0;
+    * {
+      box-sizing: border-box;
     }
-
+    html, body {
+      margin: 0; padding: 0; height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f7fb; /* azul claro */
+    }
     .container {
       max-width: 600px;
-      margin: auto;
-      padding: 20px;
-      background: #ffffff;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin: 40px auto 60px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 30px 25px 40px;
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
     }
 
-    h2 {
-      text-align: center;
-      color: #333;
-    }
-
-    .step-container {
+    /* Barra de etapas */
+    .steps {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 20px;
+      margin-bottom: 40px;
+      user-select: none;
     }
-
     .step {
-      width: 25%;
+      flex: 1;
       text-align: center;
-      padding: 10px;
-      background-color: #eee;
-      border-radius: 5px;
-      cursor: pointer;
+      position: relative;
+      font-weight: 600;
+      color: #7ac7f9; /* azul claro */
+      font-size: 14px;
+      text-transform: uppercase;
+      cursor: default;
     }
-
+    .step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: 0;
+      width: 100%;
+      height: 4px;
+      background-color: #7ac7f9;
+      transform: translateY(-50%);
+      z-index: -1;
+    }
     .step.active {
-      background-color: #8e44ad;
-      color: #fff;
+      color: #ff4d7a; /* rosa ativo */
+      cursor: default;
+    }
+    .step.active:not(:last-child)::after {
+      background-color: #ff4d7a;
+    }
+    .step.completed {
+      color: #ff4d7a;
+    }
+    .step.completed:not(:last-child)::after {
+      background-color: #ff4d7a;
+    }
+
+    /* Círculo numerado */
+    .step .circle {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background-color: #7ac7f9;
+      color: white;
+      line-height: 28px;
       font-weight: bold;
+      margin-bottom: 8px;
+      transition: background-color 0.3s;
+    }
+    .step.active .circle,
+    .step.completed .circle {
+      background-color: #ff4d7a;
     }
 
-    .form-step {
+    h1 {
+      text-align: center;
+      color: #ff4d7a;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    /* Formularios por etapa */
+    form > fieldset {
+      border: none;
+      padding: 0;
+      margin: 0;
       display: none;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    form > fieldset.active {
+      display: flex;
     }
 
-    .form-step.active {
-      display: block;
+    /* Produto info para etapa 1 */
+    .produto-info {
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 6px;
+      margin-bottom: 30px;
+      font-size: 18px;
+      color: #444;
+      text-align: center;
+      box-shadow: inset 0 0 5px #ddd;
+    }
+    .produto-info strong {
+      color: #ff4d7a;
     }
 
+    /* Inputs */
     label {
       display: block;
-      margin-top: 10px;
+      margin-top: 15px;
+      font-weight: 600;
+      color: #444;
+      font-size: 14px;
     }
-
     input, select {
       width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
+      padding: 11px 12px;
+      margin-top: 6px;
+      border: 1.8px solid #c5d6e8;
+      border-radius: 6px;
+      font-size: 15px;
+      color: #333;
+      transition: border-color 0.3s;
+    }
+    input:focus, select:focus {
+      border-color: #ff4d7a;
+      outline: none;
     }
 
+    /* Botões */
+    .buttons {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+    }
     button {
-      background-color: #8e44ad;
+      flex: 1;
+      background-color: #ff4d7a;
       color: white;
-      padding: 10px 15px;
+      padding: 14px;
       border: none;
-      border-radius: 4px;
+      border-radius: 6px;
+      font-size: 17px;
+      font-weight: 700;
       cursor: pointer;
-      margin-top: 20px;
-      width: 100%;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 4px 8px rgba(255, 77, 122, 0.5);
+    }
+    button:hover:not(:disabled) {
+      background-color: #e03d6a;
+      box-shadow: 0 6px 12px rgba(224, 61, 106, 0.7);
+    }
+    button:disabled {
+      background-color: #ffb5c1;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+    button.secondary {
+      background-color: #7ac7f9;
+      box-shadow: 0 4px 8px rgba(122, 199, 249, 0.5);
+      color: #004a7f;
+      font-weight: 600;
+    }
+    button.secondary:hover:not(:disabled) {
+      background-color: #5aa7e6;
+      box-shadow: 0 6px 12px rgba(90, 167, 230, 0.7);
     }
 
-    button:hover {
-      background-color: #732d91;
+    /* Resumo final */
+    .resumo-final p {
+      font-size: 16px;
+      margin: 8px 0;
+      color: #333;
+    }
+    .resumo-final strong {
+      color: #ff4d7a;
     }
 
-    .resumo {
-      background-color: #f4f4f4;
-      padding: 15px;
-      border-radius: 5px;
-    }
-
-    .produto-box {
-      border: 1px solid #ccc;
-      padding: 10px;
-      margin-top: 10px;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-
-    .produto-box:hover {
-      background-color: #f0f0f0;
+    /* Responsividade */
+    @media(max-width: 480px) {
+      .container {
+        margin: 20px 15px 40px;
+        padding: 20px 15px 30px;
+      }
+      .produto-info {
+        font-size: 16px;
+      }
+      button {
+        font-size: 16px;
+        padding: 12px;
+      }
+      .step {
+        font-size: 12px;
+      }
+      .step .circle {
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
+      }
+      .buttons {
+        flex-direction: column;
+      }
+      .buttons button {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Compra de Joias</h2>
 
-    <div class="step-container">
-      <div class="step active" onclick="mudarEtapa(1)">Produto</div>
-      <div class="step" onclick="mudarEtapa(2)">Dados</div>
-      <div class="step" onclick="mudarEtapa(3)">Pagamento</div>
-      <div class="step" onclick="mudarEtapa(4)">Resumo</div>
+<div class="container">
+
+  <!-- Barra de etapas -->
+  <div class="steps">
+    <div class="step active" data-step="1">
+      <div class="circle">1</div>
+      Produto
     </div>
-
-    <form id="formulario">
-      <!-- Etapa 1: Escolha do Produto -->
-      <div class="form-step active" id="etapa1">
-        <div class="produto-box" onclick="selecionarProduto('Colar de Ouro', '1500.00')">
-          <strong>Colar de Ouro</strong><br>R$ 1.500,00
-        </div>
-        <div class="produto-box" onclick="selecionarProduto('Anel de Diamante', '2800.00')">
-          <strong>Anel de Diamante</strong><br>R$ 2.800,00
-        </div>
-        <button type="button" onclick="proximaEtapa()">Próximo</button>
-      </div>
-
-      <!-- Etapa 2: Dados Pessoais -->
-      <div class="form-step" id="etapa2">
-        <label for="nome">Nome completo:</label>
-        <input type="text" id="nome" required>
-
-        <label for="cpf">CPF:</label>
-        <input type="text" id="cpf" required>
-
-        <label for="nascimento">Data de nascimento:</label>
-        <input type="date" id="nascimento" required>
-
-        <label for="rua">Rua:</label>
-        <input type="text" id="rua" required>
-
-        <label for="bairro">Bairro:</label>
-        <input type="text" id="bairro" required>
-
-        <label for="cidade">Cidade:</label>
-        <input type="text" id="cidade" required>
-
-        <label for="numero">Número:</label>
-        <input type="text" id="numero" required>
-
-        <button type="button" onclick="proximaEtapa()">Próximo</button>
-      </div>
-
-      <!-- Etapa 3: Pagamento -->
-      <div class="form-step" id="etapa3">
-        <label for="pagamento">Forma de pagamento:</label>
-        <select id="pagamentoSelect" required>
-          <option value="Cartão de Crédito">Cartão de Crédito</option>
-          <option value="Cartão de Débito">Cartão de Débito</option>
-          <option value="Pix">Pix</option>
-          <option value="À Vista">À Vista</option>
-          <option value="Link de Pagamento">Link de Pagamento</option>
-        </select>
-
-        <button type="button" onclick="proximaEtapa()">Próximo</button>
-      </div>
-
-      <!-- Etapa 4: Resumo -->
-      <div class="form-step" id="etapa4">
-        <div class="resumo" id="resumoFinal"></div>
-        <button type="submit">Confirmar e Enviar</button>
-      </div>
-    </form>
+    <div class="step" data-step="2">
+      <div class="circle">2</div>
+      Dados
+    </div>
+    <div class="step" data-step="3">
+      <div class="circle">3</div>
+      Pagamento
+    </div>
+    <div class="step" data-step="4">
+      <div class="circle">4</div>
+      Resumo
+    </div>
   </div>
 
-  <script>
-    let etapaAtual = 1;
-    let produto = '';
-    let preco = '';
+  <form id="formulario" novalidate>
 
-    function mudarEtapa(etapa) {
-      document.querySelectorAll('.form-step').forEach((step, index) => {
-        step.classList.toggle('active', index === etapa - 1);
-      });
+    <!-- Etapa 1: Produto -->
+    <fieldset data-step="1" class="active">
+      <div class="produto-info">
+        <p><strong>Produto:</strong> <span id="produto">Produto não especificado</span></p>
+        <p><strong>Preço:</strong> R$ <span id="preco">0,00</span></p>
+      </div>
+      <div class="buttons" style="justify-content: flex-end;">
+        <button type="button" id="btnAvancar1">Escolher Dados</button>
+      </div>
+    </fieldset>
 
-      document.querySelectorAll('.step').forEach((s, i) => {
-        s.classList.toggle('active', i === etapa - 1);
-      });
+    <!-- Etapa 2: Dados pessoais e endereço -->
+    <fieldset data-step="2">
+      <label for="nome">Nome completo</label>
+      <input type="text" name="nome" id="nome" required />
 
-      etapaAtual = etapa;
+      <label for="cpf">CPF</label>
+      <input type="text" name="cpf" id="cpf" required pattern="\d{11}" title="Digite 11 números do CPF sem pontos ou traços"/>
+
+      <label for="nascimento">Data de nascimento</label>
+      <input type="date" name="nascimento" id="nascimento" required max="" />
+
+      <label for="rua">Rua</label>
+      <input type="text" name="rua" id="rua" required />
+
+      <label for="bairro">Bairro</label>
+      <input type="text" name="bairro" id="bairro" required />
+
+      <label for="cidade">Cidade</label>
+      <input type="text" name="cidade" id="cidade" required />
+
+      <label for="numero">Número da casa</label>
+      <input type="text" name="numero" id="numero" required />
+
+      <div class="buttons">
+        <button type="button" class="secondary" id="btnVoltar2">Voltar</button>
+        <button type="button" id="btnAvancar2">Escolher Pagamento</button>
+      </div>
+    </fieldset>
+
+    <!-- Etapa 3: Forma de pagamento -->
+    <fieldset data-step="3">
+      <label for="pagamento">Forma de pagamento</label>
+      <select name="pagamento" id="pagamento" required>
+        <option value="">Selecione</option>
+        <option value="Cartão de Crédito">Cartão de Crédito</option>
+        <option value="Cartão de Débito">Cartão de Débito</option>
+        <option value="Pix">Pix</option>
+        <option value="À vista">À vista</option>
+        <option value="Link de Pagamento">Link de Pagamento</option>
+      </select>
+
+      <div class="buttons">
+        <button type="button" class="secondary" id="btnVoltar3">Voltar</button>
+        <button type="button" id="btnAvancar3">Resumo Final</button>
+      </div>
+    </fieldset>
+
+    <!-- Etapa 4: Resumo e confirmação -->
+    <fieldset data-step="4">
+      <h2 style="color:#ff4d7a; text-align:center; margin-bottom: 20px;">Confira seus dados</h2>
+      <div class="resumo-final" style="flex-grow:1; overflow-y:auto; max-height: 350px;">
+        <p><strong>Produto:</strong> <span id="resumoProduto"></span></p>
+        <p><strong>Preço:</strong> R$ <span id="resumoPreco"></span></p>
+        <hr />
+        <p><strong>Nome:</strong> <span id="resumoNome"></span></p>
+        <p><strong>CPF:</strong> <span id="resumoCpf"></span></p>
+        <p><strong>Data de nascimento:</strong> <span id="resumoNascimento"></span></p>
+        <p><strong>Endereço:</strong> Rua <span id="resumoRua"></span>, Bairro <span id="resumoBairro"></span>, Cidade <span id="resumoCidade"></span>, Nº <span id="resumoNumero"></span></p>
+        <hr />
+        <p><strong>Forma de pagamento:</strong> <span id="resumoPagamento"></span></p>
+      </div>
+      <div class="buttons">
+        <button type="button" class="secondary" id="btnVoltar4">Voltar</button>
+        <button type="submit" id="btnEnviar">Confirmar e Enviar</button>
+      </div>
+    </fieldset>
+  </form>
+</div>
+
+<script>
+  // Configurações iniciais
+  const urlParams = new URLSearchParams(window.location.search);
+  const produto = urlParams.get('produto') || 'Produto não especificado';
+  const precoRaw = urlParams.get('preco');
+  const preco = precoRaw && !isNaN(precoRaw) ? parseFloat(precoRaw).toFixed(2) : '0.00';
+
+  // Preencher dados do produto na etapa 1 e resumo
+  document.getElementById('produto').textContent = produto;
+  document.getElementById('preco').textContent = preco.replace('.', ',');
+
+  // Barra de passos e etapas
+  const steps = document.querySelectorAll('.step');
+  const fieldsets = document.querySelectorAll('form fieldset');
+
+  // Botões navegação
+  const btnAvancar1 = document.getElementById('btnAvancar1');
+  const btnAvancar2 = document.getElementById('btnAvancar2');
+  const btnAvancar3 = document.getElementById('btnAvancar3');
+  const btnVoltar2 = document.getElementById('btnVoltar2');
+  const btnVoltar3 = document.getElementById('btnVoltar3');
+  const btnVoltar4 = document.getElementById('btnVoltar4');
+  const formulario = document.getElementById('formulario');
+
+  // Inputs para validação
+  const inputsStep2 = [
+    'nome', 'cpf', 'nascimento',
+    'rua', 'bairro', 'cidade', 'numero'
+  ];
+  const pagamentoSelect = document.getElementById('pagamento');
+
+  // Função para mostrar etapa e atualizar barra
+  function mostrarEtapa(num) {
+    fieldsets.forEach(fs => {
+      fs.classList.toggle('active', fs.dataset.step === String(num));
+    });
+    steps.forEach((step, i) => {
+      if (i < num - 1) {
+        step.classList.add('completed');
+        step.classList.remove('active');
+      } else if (i === num - 1) {
+        step.classList.add('active');
+        step.classList.remove('completed');
+      } else {
+        step.classList.remove('active', 'completed');
+      }
+    });
+  }
+
+  // Função para validar inputs da etapa 2
+  function validarStep2() {
+    for (let id of inputsStep2) {
+      const input = document.getElementById(id);
+      if (!input.checkValidity()) {
+        input.reportValidity();
+        return false;
+      }
     }
+    return true;
+  }
 
-    function proximaEtapa() {
-      if (etapa
+  // Validar forma pagamento
+  function validarPagamento() {
+    if (!pagamentoSelect.value) {
+      pagamentoSelect.focus();
+      alert('Por favor, selecione uma forma de pagamento.');
+      return false;
+    }
+    return true;
+  }
+
+  // Atualizar data max nascimento para hoje menos 18 anos
+  function setMaxNascimento() {
+    const inputNascimento = document.getElementById('nascimento');
+    const hoje = new Date();
+    hoje.setFullYear(hoje.getFullYear() - 18);
+    const maxDate = hoje.toISOString().split('T')[0];
+    inputNascimento.setAttribute('max', maxDate);
+  }
+  setMaxNascimento();
+
+  // Atualizar resumo etapa 4
+  function atualizarResumo() {
+    document.getElementById('resumoProduto').textContent = produto;
+    document.getElementById('resumoPreco').textContent = preco.replace('.', ',');
+    document.getElementById('resumoNome').textContent = document.getElementById('nome').value;
+    document.getElementById('resumoCpf').textContent = document.getElementById('cpf').value;
+    document.getElementById('resumoNascimento').textContent = document.getElementById('nascimento').value;
+    document.getElementById('resumoRua').textContent = document.getElementById('rua').value;
+    document.getElementById('resumoBairro').textContent = document.getElementById('bairro').value;
+    document.getElementById('resumoCidade').textContent = document.getElementById('cidade').value;
+    document.getElementById('resumoNumero').textContent = document.getElementById('numero').value;
+    document.getElementById('resumoPagamento').textContent = pagamentoSelect.value;
+  }
+
+  // Eventos botões avançar e voltar
+  btnAvancar1.addEventListener('click', () => {
+    mostrarEtapa(2);
+  });
+
+  btnVoltar2.addEventListener('click', () => {
+    mostrarEtapa(1);
+  });
+
+  btnAvancar2.addEventListener('click', () => {
+    if (validarStep2()) {
+      mostrarEtapa(3);
+    }
+  });
+
+  btnVoltar3.addEventListener('click', () => {
+    mostrarEtapa(2);
+  });
+
+  btnAvancar3.addEventListener('click', () => {
+    if (validarPagamento()) {
+      atualizarResumo();
+      mostrarEtapa(4);
+    }
+  });
+
+  btnVoltar4.addEventListener('click', () => {
+    mostrarEtapa(3);
+  });
+
+  // Enviar dados para whatsapp ao enviar form
+  formulario.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const nome = document.getElementById('nome').value.trim();
+    const cpf = document.getElementById('cpf').value.trim();
+    const nascimento = document.getElementById('nascimento').value;
+    const rua = document.getElementById('rua').value.trim();
+    const bairro = document.getElementById('bairro').value.trim();
+    const cidade = document.getElementById('cidade').value.trim();
+    const numero = document.getElementById('numero').value.trim();
+    const pagamento = pagamentoSelect.value;
+
+    // Monta mensagem formatada para WhatsApp
+    const mensagem = `Olá! Gostaria de comprar o produto *${produto}* no valor de R$${preco.replace('.', ',')}.
+    
+Nome: ${nome}
+CPF: ${cpf}
+Data de nascimento: ${nascimento}
+Endereço: Rua ${rua}, Bairro ${bairro}, Cidade ${cidade}, Nº ${numero}
+Forma de pagamento: ${pagamento}`;
+
+    // Codifica a mensagem para URL
+    const mensagemUrl = encodeURIComponent(mensagem);
+
+    // Seu número do WhatsApp:
+    const numeroWhatsapp = '5518996377806';
+
+    // Abre o WhatsApp Web ou app
+    window.open(`https://wa
