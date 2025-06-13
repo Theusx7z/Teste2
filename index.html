@@ -2,141 +2,105 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Checkout - Giovanna Joias</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Giovanna Joias</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #fffafc;
+      font-family: Arial, sans-serif;
+      background: #fffdfd;
       margin: 0;
       padding: 0;
+      color: #333;
+    }
+
+    header {
+      background-color: #ff4d4d;
+      color: white;
+      text-align: center;
+      padding: 20px;
     }
 
     .container {
-      max-width: 600px;
-      margin: 40px auto;
-      padding: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .produto {
       background: white;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    }
-
-    h1 {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin: 15px;
+      padding: 15px;
+      width: 280px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       text-align: center;
-      color: #ff4d4d;
     }
 
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-
-    input, select {
+    .produto img {
       width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
+      height: auto;
       border-radius: 6px;
     }
 
-    button {
+    .produto h3 {
+      margin: 10px 0 5px;
+    }
+
+    .produto p {
+      font-weight: bold;
+      color: #27ae60;
+    }
+
+    .botao {
+      display: inline-block;
+      padding: 10px 20px;
+      margin-top: 10px;
       background-color: #27ae60;
       color: white;
-      padding: 12px 20px;
-      margin-top: 20px;
-      width: 100%;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 0.3s;
     }
 
-    button:hover {
+    .botao:hover {
       background-color: #219150;
-    }
-
-    .produto-info {
-      background: #f4f4f4;
-      padding: 15px;
-      border-radius: 6px;
-      margin-bottom: 20px;
     }
   </style>
 </head>
 <body>
 
-<div class="container">
-  <h1>Finalizar Compra</h1>
+<header>
+  <h1>Giovanna Joias ✨</h1>
+</header>
 
-  <div class="produto-info">
-    <p><strong>Produto:</strong> <span id="produto"></span></p>
-    <p><strong>Preço:</strong> R$ <span id="preco"></span></p>
+<div class="container">
+  <div class="produto">
+    <img src="https://images.unsplash.com/photo-1589987600050-62d6f2e3d40d?auto=format&fit=crop&w=600&q=80" alt="Anel de Ouro">
+    <h3>Anel de Ouro</h3>
+    <p>R$ 1.299,00</p>
+    <a href="checkout.html?produto=Anel de Ouro&preco=1299.00" class="botao">Comprar</a>
   </div>
 
-  <form id="formulario">
-    <label>Nome completo</label>
-    <input type="text" name="nome" required>
+  <div class="produto">
+    <img src="https://images.unsplash.com/photo-1602080751846-6f3dbb0a1c95?auto=format&fit=crop&w=600&q=80" alt="Colar com Pingente">
+    <h3>Colar com Pingente</h3>
+    <p>R$ 799,90</p>
+    <a href="checkout.html?produto=Colar com Pingente&preco=799.90" class="botao">Comprar</a>
+  </div>
 
-    <label>CPF</label>
-    <input type="text" name="cpf" required>
-
-    <label>Data de nascimento</label>
-    <input type="date" name="nascimento" required>
-
-    <label>Rua</label>
-    <input type="text" name="rua" required>
-
-    <label>Logradouro</label>
-    <input type="text" name="logradouro" required>
-
-    <label>Forma de pagamento</label>
-    <select name="pagamento" required>
-      <option value="">Selecione</option>
-      <option value="Cartão de Crédito">Cartão de Crédito</option>
-      <option value="Cartão de Débito">Cartão de Débito</option>
-      <option value="Pix">Pix</option>
-      <option value="À vista">À vista</option>
-      <option value="Link de Pagamento">Link de Pagamento</option>
-    </select>
-
-    <button type="submit">Enviar para o WhatsApp</button>
-  </form>
+  <div class="produto">
+    <img src="https://images.unsplash.com/photo-1598532375531-e088d5ef46c3?auto=format&fit=crop&w=600&q=80" alt="Brinco de Diamante">
+    <h3>Brinco de Diamante</h3>
+    <p>R$ 2.500,00</p>
+    <a href="checkout.html?produto=Brinco de Diamante&preco=2500.00" class="botao">Comprar</a>
+  </div>
 </div>
-
-<script>
-  // Pegar produto e preço da URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const produto = urlParams.get('produto');
-  const preco = urlParams.get('preco');
-
-  document.getElementById('produto').textContent = produto;
-  document.getElementById('preco').textContent = parseFloat(preco).toFixed(2);
-
-  document.getElementById('formulario').addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const dados = new FormData(this);
-    const nome = dados.get('nome');
-    const cpf = dados.get('cpf');
-    const nascimento = dados.get('nascimento');
-    const rua = dados.get('rua');
-    const logradouro = dados.get('logradouro');
-    const pagamento = dados.get('pagamento');
-
-    const mensagem = `Olá! Gostaria de comprar o produto *${produto}* no valor de R$${preco}.
-    
-*Nome:* ${nome}
-*CPF:* ${cpf}
-*Nascimento:* ${nascimento}
-*Rua:* ${rua}
-*Logradouro:* ${logradouro}
-*Forma de Pagamento:* ${pagamento}`;
-
-    const telefone = '5518996377806'; // Seu número com DDI (55) + DDD
-    const link = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
-    window.open(link, '_blank');
-  });
-</script>
 
 </body>
 </html>
