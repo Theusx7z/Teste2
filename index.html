@@ -128,7 +128,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Giovanna Joias</title>
+  <title>Camila Semi Jóias✨</title>
   <style>
     * {
       box-sizing: border-box;
@@ -149,18 +149,21 @@
       padding: 20px;
     }
 
-    .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
+    .scroll-container {
+      overflow-x: auto;
+      white-space: nowrap;
       padding: 20px;
     }
 
     .produto {
+      display: inline-block;
+      vertical-align: top;
       background: white;
       border: 1px solid #ddd;
       border-radius: 8px;
+      margin-right: 20px;
       padding: 15px;
+      width: 280px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       text-align: center;
     }
@@ -199,10 +202,10 @@
 <body>
 
 <header>
-  <h1>Giovanna Joias ✨</h1>
+  <h1>Camila Semi Jóias✨</h1>
 </header>
 
-<div class="container">
+<div class="scroll-container">
   <div class="produto">
     <img src="img/anel-ouro.jpg" alt="Anel de Ouro" />
     <h3>Anel de Ouro</h3>
@@ -222,6 +225,27 @@
     <h3>Brinco de Diamante</h3>
     <p>R$ 2.500,00</p>
     <a href="checkout.html?produto=Brinco de Diamante&preco=2500.00" class="botao">Comprar</a>
+  </div>
+
+  <div class="produto">
+    <img src="img/pulseira-prata.jpg" alt="Pulseira de Prata" />
+    <h3>Pulseira de Prata</h3>
+    <p>R$ 450,00</p>
+    <a href="checkout.html?produto=Pulseira de Prata&preco=450.00" class="botao">Comprar</a>
+  </div>
+
+  <div class="produto">
+    <img src="img/relogio-luxo.jpg" alt="Relógio de Luxo" />
+    <h3>Relógio de Luxo</h3>
+    <p>R$ 3.200,00</p>
+    <a href="checkout.html?produto=Relógio de Luxo&preco=3200.00" class="botao">Comprar</a>
+  </div>
+
+  <div class="produto">
+    <img src="img/anel-pedra.jpg" alt="Anel com Pedra" />
+    <h3>Anel com Pedra</h3>
+    <p>R$ 899,00</p>
+    <a href="checkout.html?produto=Anel com Pedra&preco=899.00" class="botao">Comprar</a>
   </div>
 </div>
 
