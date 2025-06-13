@@ -13,73 +13,182 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #fde8eb; /* Fundo rosa claro */
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f7fb; /* azul bem claro */
     }
 
     .container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
       max-width: 600px;
-      margin: 40px auto; /* distância do topo */
-      padding: 30px 20px;
-      min-height: auto;
+      margin: 40px auto 60px;
       background: white;
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 30px 25px 40px;
+    }
+
+    /* Barra de etapas tipo Mercado Livre */
+    .steps {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 40px;
+      user-select: none;
+    }
+
+    .step {
+      flex: 1;
+      text-align: center;
+      position: relative;
+      font-weight: 600;
+      color: #7ac7f9; /* azul claro para passos inativos */
+      font-size: 14px;
+      text-transform: uppercase;
+    }
+
+    .step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: 0;
+      width: 100%;
+      height: 4px;
+      background-color: #7ac7f9;
+      transform: translateY(-50%);
+      z-index: -1;
+    }
+
+    .step.active {
+      color: #ff4d7a; /* rosa ativo */
+    }
+
+    .step.active:not(:last-child)::after {
+      background-color: #ff4d7a;
+    }
+
+    /* Círculo numerado */
+    .step .circle {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background-color: #7ac7f9;
+      color: white;
+      line-height: 28px;
+      font-weight: bold;
+      margin-bottom: 8px;
+      transition: background-color 0.3s;
+    }
+
+    .step.active .circle {
+      background-color: #ff4d7a;
     }
 
     h1 {
       text-align: center;
-      color: #ff4d4d;
-      margin-bottom: 30px;
+      color: #ff4d7a;
+      margin-bottom: 20px;
+      font-weight: 700;
     }
 
-    label {
-      margin-top: 15px;
-      font-weight: bold;
+    .produto-info {
+      background: #f9f9f9;
+      padding: 15px 20px;
+      border-radius: 6px;
+      margin-bottom: 25px;
+      font-size: 18px;
+      color: #444;
+    }
+    .produto-info strong {
+      color: #ff4d7a;
+    }
+
+    form label {
       display: block;
+      margin-top: 15px;
+      font-weight: 600;
+      color: #444;
+      font-size: 14px;
     }
 
     input, select {
       width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
+      padding: 11px 12px;
+      margin-top: 6px;
+      border: 1.8px solid #c5d6e8;
       border-radius: 6px;
-      font-size: 16px;
+      font-size: 15px;
+      color: #333;
+      transition: border-color 0.3s;
+    }
+
+    input:focus, select:focus {
+      border-color: #ff4d7a;
+      outline: none;
     }
 
     button {
-      background-color: #27ae60;
+      background-color: #ff4d7a;
       color: white;
-      padding: 12px;
-      margin-top: 25px;
+      padding: 14px;
+      margin-top: 30px;
       width: 100%;
       border: none;
       border-radius: 6px;
-      font-size: 16px;
+      font-size: 17px;
+      font-weight: 700;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      box-shadow: 0 4px 8px rgba(255, 77, 122, 0.5);
     }
 
     button:hover {
-      background-color: #219150;
+      background-color: #e03d6a;
+      box-shadow: 0 6px 12px rgba(224, 61, 106, 0.7);
     }
 
-    .produto-info {
-      background: #f4f4f4;
-      padding: 15px;
-      border-radius: 6px;
-      margin-bottom: 20px;
-      font-size: 18px;
+    /* Responsividade */
+    @media(max-width: 480px) {
+      .container {
+        margin: 20px 15px 40px;
+        padding: 20px 15px 30px;
+      }
+      .produto-info {
+        font-size: 16px;
+      }
+      button {
+        font-size: 16px;
+        padding: 12px;
+      }
+      .step {
+        font-size: 12px;
+      }
+      .step .circle {
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
+      }
     }
   </style>
 </head>
 <body>
 
 <div class="container">
+
+  <!-- Barra de etapas -->
+  <div class="steps">
+    <div class="step active">
+      <div class="circle">1</div>
+      Resumo
+    </div>
+    <div class="step">
+      <div class="circle">2</div>
+      Dados
+    </div>
+    <div class="step">
+      <div class="circle">3</div>
+      Pagamento
+    </div>
+  </div>
+
   <h1>Finalizar Compra</h1>
 
   <div class="produto-info">
