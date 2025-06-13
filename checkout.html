@@ -1,36 +1,192 @@
-<!-- ... Tudo igual ao que você já mandou até o final do <script> ... -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Compra de Joias</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #f8f8f8, #fff);
+      margin: 0;
+      padding: 0;
+    }
 
-<script>
-  // ... [Todo o script anterior continua idêntico, até a parte abaixo] ...
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      background: #ffffff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-  formulario.addEventListener('submit', e => {
-    e.preventDefault();
+    h2 {
+      text-align: center;
+      color: #333;
+    }
 
-    const nome = document.getElementById('nome').value.trim();
-    const cpf = document.getElementById('cpf').value.trim();
-    const nascimento = document.getElementById('nascimento').value;
-    const rua = document.getElementById('rua').value.trim();
-    const bairro = document.getElementById('bairro').value.trim();
-    const cidade = document.getElementById('cidade').value.trim();
-    const numero = document.getElementById('numero').value.trim();
-    const pagamento = pagamentoSelect.value;
+    .step-container {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
 
-    const enderecoCompleto = `Rua ${rua}, Bairro ${bairro}, Cidade ${cidade}, Nº ${numero}`;
-    const mensagem = `Olá! Gostaria de comprar o produto *${produto}* no valor de *R$ ${preco.replace('.', ',')}*.%0A
-*Nome:* ${nome}%0A
-*CPF:* ${cpf}%0A
-*Nascimento:* ${nascimento}%0A
-*Endereço:* ${enderecoCompleto}%0A
-*Forma de pagamento:* ${pagamento}`;
+    .step {
+      width: 25%;
+      text-align: center;
+      padding: 10px;
+      background-color: #eee;
+      border-radius: 5px;
+      cursor: pointer;
+    }
 
-    const numeroWhatsApp = 'SEU_NUMERO_COM_DDD'; // Exemplo: 5599999999999
-    const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
-    window.open(urlWhatsApp, '_blank');
-  });
+    .step.active {
+      background-color: #8e44ad;
+      color: #fff;
+      font-weight: bold;
+    }
 
-  // Correção visual do botão "Dados" centralizado
-  const stepsFix = document.querySelectorAll('.step');
-  stepsFix.forEach(step => {
-    step.style.textAlign = 'center';
-  });
-</script>
+    .form-step {
+      display: none;
+    }
+
+    .form-step.active {
+      display: block;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #8e44ad;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 20px;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #732d91;
+    }
+
+    .resumo {
+      background-color: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+    }
+
+    .produto-box {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-top: 10px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .produto-box:hover {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Compra de Joias</h2>
+
+    <div class="step-container">
+      <div class="step active" onclick="mudarEtapa(1)">Produto</div>
+      <div class="step" onclick="mudarEtapa(2)">Dados</div>
+      <div class="step" onclick="mudarEtapa(3)">Pagamento</div>
+      <div class="step" onclick="mudarEtapa(4)">Resumo</div>
+    </div>
+
+    <form id="formulario">
+      <!-- Etapa 1: Escolha do Produto -->
+      <div class="form-step active" id="etapa1">
+        <div class="produto-box" onclick="selecionarProduto('Colar de Ouro', '1500.00')">
+          <strong>Colar de Ouro</strong><br>R$ 1.500,00
+        </div>
+        <div class="produto-box" onclick="selecionarProduto('Anel de Diamante', '2800.00')">
+          <strong>Anel de Diamante</strong><br>R$ 2.800,00
+        </div>
+        <button type="button" onclick="proximaEtapa()">Próximo</button>
+      </div>
+
+      <!-- Etapa 2: Dados Pessoais -->
+      <div class="form-step" id="etapa2">
+        <label for="nome">Nome completo:</label>
+        <input type="text" id="nome" required>
+
+        <label for="cpf">CPF:</label>
+        <input type="text" id="cpf" required>
+
+        <label for="nascimento">Data de nascimento:</label>
+        <input type="date" id="nascimento" required>
+
+        <label for="rua">Rua:</label>
+        <input type="text" id="rua" required>
+
+        <label for="bairro">Bairro:</label>
+        <input type="text" id="bairro" required>
+
+        <label for="cidade">Cidade:</label>
+        <input type="text" id="cidade" required>
+
+        <label for="numero">Número:</label>
+        <input type="text" id="numero" required>
+
+        <button type="button" onclick="proximaEtapa()">Próximo</button>
+      </div>
+
+      <!-- Etapa 3: Pagamento -->
+      <div class="form-step" id="etapa3">
+        <label for="pagamento">Forma de pagamento:</label>
+        <select id="pagamentoSelect" required>
+          <option value="Cartão de Crédito">Cartão de Crédito</option>
+          <option value="Cartão de Débito">Cartão de Débito</option>
+          <option value="Pix">Pix</option>
+          <option value="À Vista">À Vista</option>
+          <option value="Link de Pagamento">Link de Pagamento</option>
+        </select>
+
+        <button type="button" onclick="proximaEtapa()">Próximo</button>
+      </div>
+
+      <!-- Etapa 4: Resumo -->
+      <div class="form-step" id="etapa4">
+        <div class="resumo" id="resumoFinal"></div>
+        <button type="submit">Confirmar e Enviar</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    let etapaAtual = 1;
+    let produto = '';
+    let preco = '';
+
+    function mudarEtapa(etapa) {
+      document.querySelectorAll('.form-step').forEach((step, index) => {
+        step.classList.toggle('active', index === etapa - 1);
+      });
+
+      document.querySelectorAll('.step').forEach((s, i) => {
+        s.classList.toggle('active', i === etapa - 1);
+      });
+
+      etapaAtual = etapa;
+    }
+
+    function proximaEtapa() {
+      if (etapa
