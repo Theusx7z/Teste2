@@ -2,197 +2,140 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Giovanna Joias</title>
+  <title>Checkout - Giovanna Joias</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f9f9f9;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fffafc;
       margin: 0;
       padding: 0;
-      color: #333;
-    }
-
-    header {
-      background-color: #ff4d4d;
-      color: white;
-      text-align: center;
-      padding: 20px 0;
     }
 
     .container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .produto {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 30px;
       background: white;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      margin: 15px;
-      padding: 15px;
-      width: 250px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      text-align: center;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
     }
 
-    .produto img {
-      max-width: 100%;
-      height: 200px;
-      object-fit: cover;
+    h1 {
+      text-align: center;
+      color: #ff4d4d;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
       border-radius: 6px;
     }
 
-    .produto h3 {
-      margin: 10px 0 5px;
-    }
-
-    .produto p {
-      font-weight: bold;
-      color: #27ae60;
-    }
-
-    .botao {
-      display: inline-block;
-      padding: 10px 20px;
-      margin-top: 10px;
+    button {
       background-color: #27ae60;
       color: white;
-      text-decoration: none;
-      border-radius: 4px;
-      transition: background 0.3s;
+      padding: 12px 20px;
+      margin-top: 20px;
+      width: 100%;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
       cursor: pointer;
     }
 
-    .botao:hover {
+    button:hover {
       background-color: #219150;
     }
 
-    #checkout {
-      display: none;
-      background: white;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      max-width: 400px;
-      margin: 30px auto;
-      padding: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    }
-
-    #checkout input, #checkout textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-
-    #checkout button {
-      background-color: #25D366;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
-      margin-top: 15px;
-      cursor: pointer;
-    }
-
-    #checkout button:hover {
-      background-color: #1ebe5b;
+    .produto-info {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 6px;
+      margin-bottom: 20px;
     }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>Giovanna Joias ✨</h1>
-</header>
-
 <div class="container">
-  <!-- PRODUTOS -->
-  <div class="produto">
-    <img src="https://images.pexels.com/photos/1191531/pexels-photo-1191531.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Anel de Prata">
-    <h3>Anel de Prata</h3>
-    <p>R$ 79,90</p>
-    <button class="botao" onclick="abrirCheckout('Anel de Prata', 'R$ 79,90')">Comprar</button>
+  <h1>Finalizar Compra</h1>
+
+  <div class="produto-info">
+    <p><strong>Produto:</strong> <span id="produto"></span></p>
+    <p><strong>Preço:</strong> R$ <span id="preco"></span></p>
   </div>
 
-  <div class="produto">
-    <img src="https://images.pexels.com/photos/1457983/pexels-photo-1457983.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Colar com Pedra">
-    <h3>Colar com Pedra</h3>
-    <p>R$ 129,90</p>
-    <button class="botao" onclick="abrirCheckout('Colar com Pedra', 'R$ 129,90')">Comprar</button>
-  </div>
+  <form id="formulario">
+    <label>Nome completo</label>
+    <input type="text" name="nome" required>
 
-  <div class="produto">
-    <img src="https://images.pexels.com/photos/3735649/pexels-photo-3735649.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Brincos de Ouro">
-    <h3>Brincos de Ouro</h3>
-    <p>R$ 199,90</p>
-    <button class="botao" onclick="abrirCheckout('Brincos de Ouro', 'R$ 199,90')">Comprar</button>
-  </div>
+    <label>CPF</label>
+    <input type="text" name="cpf" required>
 
-  <!-- MAIS PRODUTOS -->
-  <div class="produto">
-    <img src="https://images.pexels.com/photos/998208/pexels-photo-998208.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Pulseira Feminina">
-    <h3>Pulseira Feminina</h3>
-    <p>R$ 59,90</p>
-    <button class="botao" onclick="abrirCheckout('Pulseira Feminina', 'R$ 59,90')">Comprar</button>
-  </div>
+    <label>Data de nascimento</label>
+    <input type="date" name="nascimento" required>
 
-  <div class="produto">
-    <img src="https://images.pexels.com/photos/3641050/pexels-photo-3641050.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Kit Joias Luxo">
-    <h3>Kit Joias Luxo</h3>
-    <p>R$ 399,90</p>
-    <button class="botao" onclick="abrirCheckout('Kit Joias Luxo', 'R$ 399,90')">Comprar</button>
-  </div>
+    <label>Rua</label>
+    <input type="text" name="rua" required>
 
-  <div class="produto">
-    <img src="https://images.pexels.com/photos/1456644/pexels-photo-1456644.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Relógio Feminino">
-    <h3>Relógio Feminino</h3>
-    <p>R$ 349,90</p>
-    <button class="botao" onclick="abrirCheckout('Relógio Feminino', 'R$ 349,90')">Comprar</button>
-  </div>
-</div>
+    <label>Logradouro</label>
+    <input type="text" name="logradouro" required>
 
-<!-- FORMULÁRIO DE CHECKOUT -->
-<div id="checkout">
-  <h2>Finalizar Compra via WhatsApp</h2>
-  <p><strong>Produto:</strong> <span id="produtoSelecionado"></span></p>
-  <p><strong>Preço:</strong> <span id="precoSelecionado"></span></p>
-  <input type="text" placeholder="Nome completo" id="nome">
-  <textarea placeholder="Endereço completo para entrega" id="endereco"></textarea>
-  <button onclick="finalizarCompra()">Enviar Pedido</button>
+    <label>Forma de pagamento</label>
+    <select name="pagamento" required>
+      <option value="">Selecione</option>
+      <option value="Cartão de Crédito">Cartão de Crédito</option>
+      <option value="Cartão de Débito">Cartão de Débito</option>
+      <option value="Pix">Pix</option>
+      <option value="À vista">À vista</option>
+      <option value="Link de Pagamento">Link de Pagamento</option>
+    </select>
+
+    <button type="submit">Enviar para o WhatsApp</button>
+  </form>
 </div>
 
 <script>
-  let produtoAtual = '';
-  let precoAtual = '';
+  // Pegar produto e preço da URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const produto = urlParams.get('produto');
+  const preco = urlParams.get('preco');
 
-  function abrirCheckout(produto, preco) {
-    produtoAtual = produto;
-    precoAtual = preco;
-    document.getElementById('checkout').style.display = 'block';
-    document.getElementById('produtoSelecionado').innerText = produto;
-    document.getElementById('precoSelecionado').innerText = preco;
-    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-  }
+  document.getElementById('produto').textContent = produto;
+  document.getElementById('preco').textContent = parseFloat(preco).toFixed(2);
 
-  function finalizarCompra() {
-    const nome = document.getElementById('nome').value.trim();
-    const endereco = document.getElementById('endereco').value.trim();
+  document.getElementById('formulario').addEventListener('submit', function(e) {
+    e.preventDefault();
 
-    if (nome === '' || endereco === '') {
-      alert("Por favor, preencha todos os campos.");
-      return;
-    }
+    const dados = new FormData(this);
+    const nome = dados.get('nome');
+    const cpf = dados.get('cpf');
+    const nascimento = dados.get('nascimento');
+    const rua = dados.get('rua');
+    const logradouro = dados.get('logradouro');
+    const pagamento = dados.get('pagamento');
 
-    const mensagem = `Olá! Quero fazer um pedido:\n\n📦 Produto: ${produtoAtual}\n💰 Preço: ${precoAtual}\n👤 Nome: ${nome}\n📍 Endereço: ${endereco}`;
-    const telefone = "5518996377806";
-    const url = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
+    const mensagem = `Olá! Gostaria de comprar o produto *${produto}* no valor de R$${preco}.
+    
+*Nome:* ${nome}
+*CPF:* ${cpf}
+*Nascimento:* ${nascimento}
+*Rua:* ${rua}
+*Logradouro:* ${logradouro}
+*Forma de Pagamento:* ${pagamento}`;
 
-    window.open(url, '_blank');
-  }
+    const telefone = '5518996377806'; // Seu número com DDI (55) + DDD
+    const link = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
+    window.open(link, '_blank');
+  });
 </script>
 
 </body>
