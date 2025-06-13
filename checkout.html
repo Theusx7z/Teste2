@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checkout - Giovanna Joias</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fffafc;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 30px 20px;
+      min-height: 100vh;
+      background: white;
+    }
+
+    h1 {
+      text-align: center;
+      color: #ff4d4d;
+    }
+
+    label {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      background-color: #27ae60;
+      color: white;
+      padding: 12px;
+      margin-top: 25px;
+      width: 100%;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #219150;
+    }
+
+    .produto-info {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Finalizar Compra</h1>
+
+  <div class="produto-info">
+    <p><strong>Produto:</strong> <span id="produto"></span></p>
+    <p><strong>Preço:</strong> R$ <span id="preco"></span></p>
+  </div>
+
+  <form id="formulario">
+    <label>Nome completo</label>
+    <input type="text" name="nome" required>
+
+    <label>CPF</label>
+    <input type="text" name="cpf" required>
+
+    <label>Data de nascimento</label>
+    <input type="date" name="nascimento" required>
+
+    <label>Rua</label>
+    <input type="text" name="rua" required>
+
+    <label>Logradouro</label>
+    <input type="text" name="logradouro" required>
+
+    <label>Forma de pagamento</label>
+    <select name="pagamento" required>
+      <option value="">Selecione</option>
+      <option value="Cartão de Crédito">Cartão de Crédito</option>
+      <option value="Cartão de Débito">Cartão de Débito</option>
+      <option value="Pix">Pix</option>
+      <option value="À vista">À vista</option>
+      <option value="Link de Pagamento">Link de Pagamento</option>
+    </select>
+
+    <button type="submit">Enviar para o WhatsApp</button>
+  </form>
+</div>
+
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const produto = urlParams.get('produto');
+  const preco = urlParams.get('preco');
+
+  document.getElementById('produto').textContent = produto;
+  document.getElementById('preco').textContent = parseFloat(preco).toFixed(2);
+
+  document.getElementById('formulario').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const dados = new FormData(this);
+    const nome = dados.get('nome');
+    const cpf = dados.get('cpf');
+    const nascimento = dados.get('nascimento');
+    const rua = dados.get('rua');
+    const logradouro = dados.get('logradouro');
+    const pagamento = dados.get('pagamento');
+
+    const mensagem = `Olá! Gostaria de comprar o produto *${produto}* no valor de R$${preco}.
+    
+*Nome:* ${nome}
+*CPF:* ${cpf}
+*Nascimento:* ${nascimento}
+*Rua:* ${rua}
+*Logradouro:* ${logradouro}
+*Forma de Pagamento:* ${pagamento}`;
+
+    const telefone = '5518996377806';
+    const link = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
+    window.open(link, '_blank');
+  });
+</script>
+
+</body>
+</html>
