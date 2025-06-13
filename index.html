@@ -80,51 +80,27 @@
 </header>
 
 <div class="container">
-  <div class="produto" data-produto="Anel de Ouro">
-    <img src="" alt="Anel de Ouro" />
+  <div class="produto">
+    <img src="https://images.unsplash.com/photo-1589987600050-62d6f2e3d40d?auto=format&fit=crop&w=600&q=80" alt="Anel de Ouro" />
     <h3>Anel de Ouro</h3>
     <p>R$ 1.299,00</p>
     <a href="checkout.html?produto=Anel de Ouro&preco=1299.00" class="botao">Comprar</a>
   </div>
 
-  <div class="produto" data-produto="Corrente">
-    <img src="" alt="Corrente" />
-    <h3>Corrente</h3>
-    <p>R$ 599,90</p>
-    <a href="checkout.html?produto=Corrente&preco=599.90" class="botao">Comprar</a>
+  <div class="produto">
+    <img src="https://images.unsplash.com/photo-1602080751846-6f3dbb0a1c95?auto=format&fit=crop&w=600&q=80" alt="Colar com Pingente" />
+    <h3>Colar com Pingente</h3>
+    <p>R$ 799,90</p>
+    <a href="checkout.html?produto=Colar com Pingente&preco=799.90" class="botao">Comprar</a>
   </div>
 
-  <div class="produto" data-produto="Brinco de Diamante">
-    <img src="" alt="Brinco de Diamante" />
+  <div class="produto">
+    <img src="https://images.unsplash.com/photo-1598532375531-e088d5ef46c3?auto=format&fit=crop&w=600&q=80" alt="Brinco de Diamante" />
     <h3>Brinco de Diamante</h3>
     <p>R$ 2.500,00</p>
     <a href="checkout.html?produto=Brinco de Diamante&preco=2500.00" class="botao">Comprar</a>
   </div>
 </div>
-
-<script>
-  // Mapeamento produto -> url da imagem
-  const imagensProdutos = {
-    "Anel de Ouro": "https://images.unsplash.com/photo-1589987600050-62d6f2e3d40d?auto=format&fit=crop&w=600&q=80",
-    "Corrente": "https://images.unsplash.com/photo-1602080751846-6f3dbb0a1c95?auto=format&fit=crop&w=600&q=80",
-    "Brinco de Diamante": "https://images.unsplash.com/photo-1598532375531-e088d5ef46c3?auto=format&fit=crop&w=600&q=80"
-  };
-
-  // Percorre todos os produtos e atualiza a imagem
-  document.querySelectorAll('.produto').forEach(produtoDiv => {
-    const nomeProduto = produtoDiv.getAttribute('data-produto');
-    const img = produtoDiv.querySelector('img');
-
-    if(imagensProdutos[nomeProduto]) {
-      img.src = imagensProdutos[nomeProduto];
-      img.alt = nomeProduto;
-    } else {
-      // Imagem padrão caso não tenha no mapa
-      img.src = "https://via.placeholder.com/600x400?text=Imagem+n%C3%A3o+dispon%C3%ADvel";
-      img.alt = "Imagem não disponível";
-    }
-  });
-</script>
 
 </body>
 </html>
