@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Checkout - Giovanna Joias</title>
   <style>
     * {
@@ -36,6 +36,7 @@
     label {
       margin-top: 15px;
       font-weight: bold;
+      display: block;
     }
 
     input, select {
@@ -44,6 +45,7 @@
       margin-top: 5px;
       border: 1px solid #ccc;
       border-radius: 6px;
+      font-size: 16px;
     }
 
     button {
@@ -67,6 +69,7 @@
       padding: 15px;
       border-radius: 6px;
       margin-bottom: 20px;
+      font-size: 18px;
     }
   </style>
 </head>
@@ -76,28 +79,28 @@
   <h1>Finalizar Compra</h1>
 
   <div class="produto-info">
-    <p><strong>Produto:</strong> <span id="produto"></span></p>
-    <p><strong>Preço:</strong> R$ <span id="preco"></span></p>
+    <p><strong>Produto:</strong> <span id="produto">Produto não especificado</span></p>
+    <p><strong>Preço:</strong> R$ <span id="preco">0,00</span></p>
   </div>
 
   <form id="formulario">
-    <label>Nome completo</label>
-    <input type="text" name="nome" required>
+    <label for="nome">Nome completo</label>
+    <input type="text" name="nome" id="nome" required />
 
-    <label>CPF</label>
-    <input type="text" name="cpf" required>
+    <label for="cpf">CPF</label>
+    <input type="text" name="cpf" id="cpf" required />
 
-    <label>Data de nascimento</label>
-    <input type="date" name="nascimento" required>
+    <label for="nascimento">Data de nascimento</label>
+    <input type="date" name="nascimento" id="nascimento" required />
 
-    <label>Rua</label>
-    <input type="text" name="rua" required>
+    <label for="rua">Rua</label>
+    <input type="text" name="rua" id="rua" required />
 
-    <label>Logradouro</label>
-    <input type="text" name="logradouro" required>
+    <label for="logradouro">Logradouro</label>
+    <input type="text" name="logradouro" id="logradouro" required />
 
-    <label>Forma de pagamento</label>
-    <select name="pagamento" required>
+    <label for="pagamento">Forma de pagamento</label>
+    <select name="pagamento" id="pagamento" required>
       <option value="">Selecione</option>
       <option value="Cartão de Crédito">Cartão de Crédito</option>
       <option value="Cartão de Débito">Cartão de Débito</option>
@@ -111,13 +114,17 @@
 </div>
 
 <script>
+  // Pega os parâmetros da URL
   const urlParams = new URLSearchParams(window.location.search);
-  const produto = urlParams.get('produto');
-  const preco = urlParams.get('preco');
+  const produto = urlParams.get('produto') || 'Produto não especificado';
+  const precoRaw = urlParams.get('preco');
+  const preco = precoRaw && !isNaN(precoRaw) ? parseFloat(precoRaw).toFixed(2) : '0.00';
 
+  // Atualiza a exibição do produto e preço
   document.getElementById('produto').textContent = produto;
-  document.getElementById('preco').textContent = parseFloat(preco).toFixed(2);
+  document.getElementById('preco').textContent = preco.replace('.', ',');
 
+  // Evento submit do formulário
   document.getElementById('formulario').addEventListener('submit', function(e) {
     e.preventDefault();
 
@@ -138,7 +145,7 @@
 *Logradouro:* ${logradouro}
 *Forma de Pagamento:* ${pagamento}`;
 
-    const telefone = '5518996377806';
+    const telefone = '5518996377806'; // Seu número com código do país e DDD
     const link = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
     window.open(link, '_blank');
   });
