@@ -24,131 +24,6 @@
       padding: 20px;
     }
 
-    .container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .produto {
-      background: white;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      margin: 15px;
-      padding: 15px;
-      width: 280px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-
-    .produto img {
-      width: 100%;
-      height: auto;
-      border-radius: 6px;
-    }
-
-    .produto h3 {
-      margin: 10px 0 5px;
-    }
-
-    .produto p {
-      font-weight: bold;
-      color: #27ae60;
-    }
-
-    .botao {
-      display: inline-block;
-      padding: 10px 20px;
-      margin-top: 10px;
-      background-color: #27ae60;
-      color: white;
-      text-decoration: none;
-      border-radius: 4px;
-      transition: background 0.3s;
-    }
-
-    .botao:hover {
-      background-color: #219150;
-    }
-    <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Camila Semi Jóias✨</title>
-  <style>
-    /* seu CSS */
-  </style>
-</head>
-<body>
-
-<header>
-  <h1>Camila Semi Jóias✨</h1>
-</header>
-
-<div class="container">
-  <div class="produto">
-    <img src="img/anel-ouro.jpg" alt="Anel de Ouro" />
-    <h3>Anel de Ouro</h3>
-    <p>R$ 1.299,00</p>
-    <a href="checkout.html?produto=Anel de Ouro&preco=1299.00" class="botao">Comprar</a>
-  </div>
-
-  <div class="produto">
-    <img src="e7d11b05-201b-4541-b107-dc87bfc1fb7d.jpeg"
-   .produto img
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 6px;/>
-    
-    <h3>Brinco De lasinho</h3>
-    <p>R$ 119,90</p>
-    <a href="checkout.html?produto=Colar com Pingente&preco=799.90" class="botao">Comprar</a>
-  </div>
-
-  <div class="produto">
-    <img src="58693b2e-a478-4721-a090-87cfb816937b.jpeg" alt="Brinco de Diamante"
-    .produto img 
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
-  border-radius: 6px;
-/>
-
-    <h3>Argola De Coração</h3>
-    <p>R$ 110,00</p>
-    <a href="checkout.html?produto=Brinco de Diamante&preco=2500.00" class="botao">Comprar</a>
-  </div>
-</div>
-
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Camila Semi Jóias✨</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      background: #fffdfd;
-      margin: 0;
-      padding: 0;
-      color: #333;
-    }
-
-    header {
-      background-color: #ff4d4d;
-      color: white;
-      text-align: center;
-      padding: 20px;
-    }
-
     .scroll-container {
       overflow-x: auto;
       white-space: nowrap;
@@ -219,12 +94,36 @@
     .botao:hover {
       background-color: #219150;
     }
+
+    footer {
+      background-color: #1c1c1c;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    footer img {
+      vertical-align: middle;
+    }
+
+    footer .icons {
+      margin-bottom: 15px;
+    }
+
+    footer .icons a {
+      margin: 0 10px;
+    }
+
+    footer p {
+      font-size: 14px;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
 
 <header>
-  <h1>Brincos e Pulseiras✨</h1>
+  <h1>Camila Semi Jóias✨</h1>
 </header>
 
 <div class="scroll-container">
@@ -263,43 +162,25 @@
     <p>R$ 2.500,00</p>
     <a href="checkout.html?produto=Brinco de Diamante&preco=2500.00" class="botao">Comprar</a>
   </div>
-
-  <div class="produto">
-    <div class="carousel">
-      <div class="carousel-inner">
-        <img src="img/pulseira-prata.jpg" alt="Pulseira de Prata" />
-        <img src="img/pulseira-prata.jpg" alt="Pulseira de Prata 2" />
-      </div>
-    </div>
-    <h3>Pulseira de Prata</h3>
-    <p>R$ 450,00</p>
-    <a href="checkout.html?produto=Pulseira de Prata&preco=450.00" class="botao">Comprar</a>
-  </div>
-
-  <div class="produto">
-    <div class="carousel">
-      <div class="carousel-inner">
-        <img src="img/relogio-luxo.jpg" alt="Relógio de Luxo" />
-        <img src="img/relogio-luxo.jpg" alt="Relógio de Luxo 2" />
-      </div>
-    </div>
-    <h3>Relógio de Luxo</h3>
-    <p>R$ 3.200,00</p>
-    <a href="checkout.html?produto=Relógio de Luxo&preco=3200.00" class="botao">Comprar</a>
-  </div>
-
-  <div class="produto">
-    <div class="carousel">
-      <div class="carousel-inner">
-        <img src="80e36c6d-fe68-4133-9fc3-f24ffed4cee7.jpeg" alt="Brinco" />
-        <img src="f3357810-e002-4c1d-b0b1-ea1da45d8ba0.jpeg" alt=Chocker" />
-      </div>
-    </div>
-    <h3>Conjunto Earcuff Chocker</h3>
-    <p>R$ 369,99</p>
-    <a href="checkout.html?produto=Anel com Pedra&preco=899.00" class="botao">Comprar</a>
-  </div>
 </div>
+
+<footer>
+  <div class="icons">
+    <a href="https://wa.me/5541987724730" target="_blank">
+      <img src="img/whatsapp.png" alt="WhatsApp" width="40" />
+    </a>
+    <a href="https://wa.me/5541987724730" target="_blank">
+      <img src="img/whatsapp.png" alt="WhatsApp" width="40" />
+    </a>
+    <a href="https://instagram.com/sua_loja" target="_blank">
+      <img src="img/instagram.png" alt="Instagram" width="40" />
+    </a>
+  </div>
+  <div>
+    <img src="img/sua-logo.png" alt="Logo Camila Semi Jóias" style="width: 160px; margin-top: 10px;" />
+  </div>
+  <p>&copy; 2025 Camila Semi Jóias - Todos os direitos reservados</p>
+</footer>
 
 </body>
 </html>
